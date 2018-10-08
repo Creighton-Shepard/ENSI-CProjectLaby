@@ -1,4 +1,4 @@
-#include "head.h"
+#include "../include/head.h"
 
 //main CHOIX 1
 void nouveauLabyrinthe(){
@@ -12,23 +12,51 @@ void nouveauLabyrinthe(){
     clearConsole();
 
     Case **laby;
-    laby=allouerMemoireLaby(taille_horiz, taille_verti, laby);
+    laby=allouerMemoireLabyrinthe(taille_horiz, taille_verti, laby);
     initialiserLabyrinthe(taille_horiz, taille_verti, laby);
     afficherLabyrinthe(taille_horiz,taille_verti, laby);
+    construireLabyrinthe(taille_horiz,taille_verti, laby);
+
     recupererSaisieInteger("Truc",&taille_horiz);
-    libererMemoireLaby(taille_horiz, laby);
+    libererMemoireLabyrinthe(taille_horiz, laby);
 }
 
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby){
     int i,j;
+    int cpt=1;
+
     for(i=0;i<t_h;i++){
         for(j=0;j<t_v;j++){
-            laby[i][j].type='#';
+            if ((i%2==0) || (j%2==0))
+            {
+                laby[i][j].type='#';
+            }
+            else
+            {
+                laby[i][j].type='n';
+                laby[i][j].value=cpt;
+                cpt++;
+            }  
         }
     }
 }
 
-Case** allouerMemoireLaby(int t_h, int t_v, Case **laby){
+void construireLabyrinthe(int t_h, int t_v,Case **laby){
+    int case_alea_horiz=0;
+    int case_alea_verti=0;
+
+    caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
+    printf("%d, %d",case_alea_horiz,case_alea_verti);
+}
+
+void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti ){
+    srand(time(NULL));
+
+    *case_alea_horiz=((int)rand()/RAND_MAX)* t_h + 1;
+    *case_alea_verti=((int)rand()/RAND_MAX)* t_v + 1;
+}
+
+Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby){
     int i;
     
     laby=(Case **)malloc(t_h * sizeof(Case *));
@@ -50,7 +78,7 @@ Case** allouerMemoireLaby(int t_h, int t_v, Case **laby){
     return laby;
 }
 
-void libererMemoireLaby(int t_h, Case **laby){
+void libererMemoireLabyrinthe(int t_h, Case **laby){
     int i;
 
     for(i=0; i<t_h; i++){

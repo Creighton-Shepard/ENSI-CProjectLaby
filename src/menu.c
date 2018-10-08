@@ -1,4 +1,4 @@
-#include "head.h"
+#include "../include/head.h"
 
 int main(int argc, char * argv[])
 {

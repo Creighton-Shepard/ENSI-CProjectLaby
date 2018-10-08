@@ -1,4 +1,4 @@
-#include "head.h"
+#include "../include/head.h"
 
 void afficherMenu(){
     printf("Bienvenue sur le jeu du Labyrinthe !\n\n");
@@ -14,7 +14,14 @@ void afficherLabyrinthe(int t_h, int t_v, Case **laby){
 
     for(i=0;i<t_h;i++){
         for(j=0;j<t_v;j++){
-            printf("%c",laby[i][j].type);
+            if (laby[i][j].type=='n')
+            {
+                printf("%d",laby[i][j].value);
+            }
+            else
+            {
+                printf("%c",laby[i][j].type);
+            }
         }
         printf("\n");
     }

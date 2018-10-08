@@ -1,4 +1,4 @@
-#include "head.h"
+#include "../include/head.h"
 
 void recupererSaisieInteger(char * phraseDem, int * var){
     if (phraseDem!=NULL){
