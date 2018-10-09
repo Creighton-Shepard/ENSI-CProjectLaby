@@ -44,18 +44,26 @@ void initialiserLabyrinthe(int t_h, int t_v,Case **laby){
 void construireLabyrinthe(int t_h, int t_v,Case **laby){
     int case_alea_horiz=0;
     int case_alea_verti=0;
+    int indice_aleatoire;
     int caseElij[4][2]; //tableau de booleen : [0]=Gauche [1]=Haut [2]=Droite [3]=Bas
 
+    initialiserRandom();
     initialiserCaseAdjacente(caseElij);
 
-    srand(time(NULL)); //initialise le random
 
     do{
         caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
     } while(laby[case_alea_horiz][case_alea_verti].type=='#');
     printf("Random : %d, %d\n",case_alea_horiz,case_alea_verti);
     determinerCaseAdjacenteEligible(&t_h, &t_v, laby, &case_alea_horiz, &case_alea_verti, caseElij);
-
+    do{
+        if(caseElij[0][0]==-1 && caseElij[1][0]==-1 && caseElij[2][0]==-1 && caseElij[3][0]==-1){
+            printf("No case found\n");
+            break;
+        }
+        indice_aleatoire=entierAleatoire(0,3);
+    } while (caseElij[indice_aleatoire][1]==-1);
+    printf("%d",indice_aleatoire);
     
 }
 

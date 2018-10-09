@@ -32,5 +32,7 @@ void recupererSaisieInteger(char * phraseDem, int * var);
 
 //aleatoire.c
 void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti );
+int entierAleatoire(int min, int max);
+void initialiserRandom();
 
 #endif
