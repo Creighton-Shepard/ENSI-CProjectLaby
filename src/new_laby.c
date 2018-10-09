@@ -44,16 +44,70 @@ void initialiserLabyrinthe(int t_h, int t_v,Case **laby){
 void construireLabyrinthe(int t_h, int t_v,Case **laby){
     int case_alea_horiz=0;
     int case_alea_verti=0;
+    int caseElij[4][2]; //tableau de booleen : [0]=Gauche [1]=Haut [2]=Droite [3]=Bas
 
-    caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
-    printf("%d, %d",case_alea_horiz,case_alea_verti);
+    initialiserCaseAdjacente(caseElij);
+
+    srand(time(NULL)); //initialise le random
+
+    do{
+        caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
+    } while(laby[case_alea_horiz][case_alea_verti].type=='#');
+    printf("Random : %d, %d\n",case_alea_horiz,case_alea_verti);
+    determinerCaseAdjacenteEligible(&t_h, &t_v, laby, &case_alea_horiz, &case_alea_verti, caseElij);
+
+    
 }
 
-void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti ){
-    srand(time(NULL));
+void initialiserCaseAdjacente(int caseElij[4][2]){
+    int i;
+    for(int i=0;i<4;i++){
+        caseElij[i][0]=-1;
+        caseElij[i][1]=-1;
+    }
+}
 
-    *case_alea_horiz=((int)rand()/RAND_MAX)* t_h + 1;
-    *case_alea_verti=((int)rand()/RAND_MAX)* t_v + 1;
+void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_alea_horiz, int *case_alea_verti, int caseElij[4][2]){
+    if ((*case_alea_horiz)!=1)
+    {
+        if(laby[*case_alea_horiz-2][*case_alea_verti].type='n'){
+            if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz-2][*case_alea_verti].value){
+                caseElij[0][0]=*case_alea_horiz-2;
+                caseElij[0][1]=*case_alea_verti;
+                printf("Une case à gauche !\n");
+            }
+        }
+    }
+    if ((*case_alea_verti)!=1)
+    {
+        if(laby[*case_alea_horiz][*case_alea_verti-2].type='n'){
+            if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz][*case_alea_verti-2].value){
+                caseElij[1][0]=*case_alea_horiz;
+                caseElij[1][1]=*case_alea_verti-2;
+                printf("Une case en haut !\n");
+            }
+        }
+    }
+    if ((*case_alea_horiz)!=((*t_h)-2))
+    {
+        if(laby[*case_alea_horiz+2][*case_alea_verti].type='n'){
+            if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz+2][*case_alea_verti].value){
+                caseElij[2][0]=*case_alea_horiz+2;
+                caseElij[2][1]=*case_alea_verti;
+                printf("Une case à droite !\n");
+            }
+        }
+    }
+    if ((*case_alea_verti)!=((*t_v)-2))
+    {
+        if(laby[*case_alea_horiz][*case_alea_verti+2].type='n'){
+            if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz][*case_alea_verti+2].value){
+                caseElij[3][0]=*case_alea_horiz;
+                caseElij[3][1]=*case_alea_verti+2;
+                printf("Une case en bas !\n");
+            }
+        }
+    }  
 }
 
 Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby){
