@@ -12,15 +12,15 @@ void afficherMenu(){
 void afficherLabyrinthe(int t_h, int t_v, Case **laby){
     int i,j;
 
-    for(i=0;i<t_h;i++){
-        for(j=0;j<t_v;j++){
-            if (laby[i][j].type=='n')
+    for(i=0;i<t_v;i++){
+        for(j=0;j<t_h;j++){
+            if (laby[j][i].type=='n')
             {
-                printf("%d",laby[i][j].value);
+                printf("%d",laby[j][i].value);
             }
             else
             {
-                printf("%c",laby[i][j].type);
+                printf("%c",laby[j][i].type);
             }
         }
         printf("\n");
