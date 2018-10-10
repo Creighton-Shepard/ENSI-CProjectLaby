@@ -26,6 +26,9 @@ void libererMemoireLabyrinthe(int t_h, Case **laby);
 void construireLabyrinthe(int t_h, int t_v,Case **laby);
 void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_alea_horiz, int *case_alea_verti, int caseElij[4][2]);
 void initialiserCaseAdjacente(int caseElij[4][2]);
+void casserMurChoisi(Case ** laby, int caseElij[4][2], int indice);
+void corrigerIndice(int t_h, int t_v, Case ** laby, int new_valeur, int ancien_valeur);
+int verifierLabyrinthe(int t_h,int t_v,Case ** laby);
 
 //saisie.c
 void recupererSaisieInteger(char * phraseDem, int * var);

@@ -48,23 +48,90 @@ void construireLabyrinthe(int t_h, int t_v,Case **laby){
     int caseElij[4][2]; //tableau de booleen : [0]=Gauche [1]=Haut [2]=Droite [3]=Bas
 
     initialiserRandom();
-    initialiserCaseAdjacente(caseElij);
-
 
     do{
-        caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
-    } while(laby[case_alea_horiz][case_alea_verti].type=='#');
-    printf("Random : %d, %d\n",case_alea_horiz,case_alea_verti);
-    determinerCaseAdjacenteEligible(&t_h, &t_v, laby, &case_alea_horiz, &case_alea_verti, caseElij);
-    do{
-        if(caseElij[0][0]==-1 && caseElij[1][0]==-1 && caseElij[2][0]==-1 && caseElij[3][0]==-1){
-            printf("No case found\n");
-            break;
+        initialiserCaseAdjacente(caseElij);
+        do{
+            caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
+        } while(laby[case_alea_horiz][case_alea_verti].type=='#');
+        printf("Random : %d, %d\n",case_alea_horiz,case_alea_verti);
+        determinerCaseAdjacenteEligible(&t_h, &t_v, laby, &case_alea_horiz, &case_alea_verti, caseElij);
+        do{
+            if(caseElij[0][0]==-1 && caseElij[1][0]==-1 && caseElij[2][0]==-1 && caseElij[3][0]==-1){
+                printf("No case found\n");
+                break;
+            }
+            indice_aleatoire=entierAleatoire(0,3);
+        } while (caseElij[indice_aleatoire][1]==-1);
+        printf("Indice aléatoire : %d\n",indice_aleatoire);
+        casserMurChoisi(laby,caseElij, indice_aleatoire);
+        corrigerIndice(t_h,t_v,laby,laby[case_alea_horiz][case_alea_verti].value,laby[caseElij[indice_aleatoire][0]][caseElij[indice_aleatoire][1]].value);
+        afficherLabyrinthe(t_h,t_v,laby);
+    } while(verifierLabyrinthe(t_h, t_v, laby)==0);
+}
+
+int verifierLabyrinthe(int t_h,int t_v,Case ** laby){
+    int ind=-1;
+    int i, j;
+
+    for(i=1;i<t_h-1;i++){
+        for(j=1;j<t_v-1;j++){
+            if (laby[i][j].type=='n'){
+                if(ind==-1){
+                    ind=laby[i][j].value;
+                }
+                else
+                {
+                    if(ind!=laby[i][j].value){
+                        printf("Non terminé !\n");
+                        return 0;
+                    }
+                }
+            }
         }
-        indice_aleatoire=entierAleatoire(0,3);
-    } while (caseElij[indice_aleatoire][1]==-1);
-    printf("%d",indice_aleatoire);
+    }
+    printf("Terminé !\n");
+    return 1;
+}
+
+void corrigerIndice(int t_h, int t_v, Case ** laby, int new_valeur, int ancien_valeur){
+    int i, j;
     
+    for (i=1; i<t_h-1; i++){
+        for(j=1; j<t_v-1; j++){
+            if(laby[i][j].type=='n'){
+                if(laby[i][j].value==ancien_valeur){
+                    laby[i][j].value=new_valeur;
+                }
+            }
+        }
+    }
+}
+
+void casserMurChoisi(Case ** laby, int caseElij[4][2], int indice){
+    int coordMur_h;
+    int coordMur_v;
+
+    coordMur_h=caseElij[indice][0];
+    coordMur_v=caseElij[indice][1];
+    switch(indice){
+        case 0:
+            coordMur_h++;
+            break;
+        case 1:
+            coordMur_v++;
+            break;
+        case 2:
+            coordMur_h--;
+            break;
+        case 3:
+            coordMur_v--;
+            break;
+        default:
+            printf("Erreur: Indice de Mur incorrecte !\n");
+    }
+    laby[coordMur_h][coordMur_v].type='n';
+    laby[coordMur_h][coordMur_v].value=laby[caseElij[indice][0]][caseElij[indice][1]].value;
 }
 
 void initialiserCaseAdjacente(int caseElij[4][2]){
