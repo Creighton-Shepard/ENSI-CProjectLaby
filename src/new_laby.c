@@ -6,7 +6,7 @@ void nouveauLabyrinthe(){
     int taille_verti;
 
     clearConsole();
-    printf("Nouveau Labyrynthe !\n");
+    printf("Nouveau Labyrinthe !\n");
     demanderEntierSigneImpair("Indiquer la taille horizontale du nouveau labyrinthe :\n",&taille_horiz);
     demanderEntierSigneImpair("Indiquer la taille verticale du nouveau labyrinthe :\n",&taille_verti);
     clearConsole();
@@ -17,8 +17,14 @@ void nouveauLabyrinthe(){
     afficherLabyrinthe(taille_horiz,taille_verti, laby);
     construireLabyrinthe(taille_horiz,taille_verti, laby);
 
-    recupererSaisieInteger("Truc",&taille_horiz);
+    char ** file_name;
+    file_name=(char **)malloc(sizeof(char *));
+
+    recupererSaisieString("Quel est le nom du labyrinthe ?\n",&file_name);
+    printf("%s\n", file_name);
+    recupererSaisieInteger("TTTTS",&taille_horiz);
     libererMemoireLabyrinthe(taille_horiz, laby);
+    free(file_name);
 }
 
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby){
@@ -66,6 +72,8 @@ void construireLabyrinthe(int t_h, int t_v,Case **laby){
     } while(verifierLabyrinthe(t_h, t_v, laby)==0);
 
     steriliserLabyrintheApresConstruction(t_h, t_v, laby);
+    laby[0][1].type='o';
+    laby[t_h-1][t_v-2].type='v';
     afficherLabyrinthe(t_h, t_v, laby);
 }
 

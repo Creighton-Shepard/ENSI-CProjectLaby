@@ -19,7 +19,7 @@ void demanderEntierSigneImpair(char * phraseDem, int * var){
         }
         else if(*var<5){
             clearConsole();
-            if (*var<=0){
+            if (*var<=0){                        
                 printf("Cette donnée doit être strictement positive !\n");
             }
             else
@@ -28,4 +28,14 @@ void demanderEntierSigneImpair(char * phraseDem, int * var){
             }
         }
     } while (*var%2==0 || *var<5);
+}
+
+void recupererSaisieString(char * phraseDem, char ** var){
+    if (phraseDem!=NULL){
+        printf("%s",phraseDem);
+    }
+    else{
+        printf("Erreur : Pas de phrase dans la fonction de récupération de String");
+    }
+    scanf("%s",var);
 }

@@ -35,6 +35,7 @@ void steriliserLabyrintheApresConstruction(int t_h, int t_v, Case ** laby);
 //saisie.c
 void recupererSaisieInteger(char * phraseDem, int * var);
 void demanderEntierSigneImpair(char * phraseDem, int * var);
+void recupererSaisieString(char * phraseDem, char ** var);
 
 //aleatoire.c
 void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti );

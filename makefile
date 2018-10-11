@@ -1,24 +1,24 @@
-#CFLAGS=-Wall -ansi -pedantic
 
-
-
-bin/Labyrinthe : menu.o affichage.o new_laby.o saisie.o aleatoire.o
-	gcc $^ -o $@
+bin/Labyrinthe : affichage.o aleatoire.o file.o menu.o new_laby.o saisie.o
+	gcc $^ -o $@ ; make clean
 
 affichage.o: src/affichage.c
-	gcc -c $^
+	gcc -c $^ 
 
 menu.o: src/menu.c include/head.h
-	gcc -c src/menu.c
+	gcc -c src/menu.c 
 
 new_laby.o: src/new_laby.c include/head.h
-	gcc -c src/new_laby.c
+	gcc -c src/new_laby.c 
 
 saisie.o: src/saisie.c
-	gcc -c $^
+	gcc -c $^ 
 
 aleatoire.o : src/aleatoire.c
-	gcc -c $^
+	gcc -c $^ 
+
+file.o : src/file.c
+	gcc -c $^ 
 
 clean:
 	rm -rf *.o
