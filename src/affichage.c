@@ -18,6 +18,9 @@ void afficherLabyrinthe(int t_h, int t_v, Case **laby){
             {
                 printf("%d",laby[j][i].value);
             }
+            else if (laby[j][i].type=='v'){
+                printf(" ");
+            }
             else
             {
                 printf("%c",laby[j][i].type);

@@ -9,7 +9,7 @@
 #define RAND_MAX 2147483647
 
 typedef struct{
-    char type; // #=Mur o=Personnage ...
+    char type; // #=Mur o=Personnage n=Valeur(nombre pour la construction) v=vide(après construction)...
     int value;
 } Case;
 
@@ -29,9 +29,12 @@ void initialiserCaseAdjacente(int caseElij[4][2]);
 void casserMurChoisi(Case ** laby, int caseElij[4][2], int indice);
 void corrigerIndice(int t_h, int t_v, Case ** laby, int new_valeur, int ancien_valeur);
 int verifierLabyrinthe(int t_h,int t_v,Case ** laby);
+void steriliserLabyrintheApresConstruction(int t_h, int t_v, Case ** laby);
+
 
 //saisie.c
 void recupererSaisieInteger(char * phraseDem, int * var);
+void demanderEntierSigneImpair(char * phraseDem, int * var);
 
 //aleatoire.c
 void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti );

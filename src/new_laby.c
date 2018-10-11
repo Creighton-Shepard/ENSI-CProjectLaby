@@ -7,8 +7,8 @@ void nouveauLabyrinthe(){
 
     clearConsole();
     printf("Nouveau Labyrynthe !\n");
-    recupererSaisieInteger("Indiquer la taille horizontale du nouveau labyrinthe :\n",&taille_horiz);
-    recupererSaisieInteger("Indiquer la taille verticale du nouveau labyrinthe :\n",&taille_verti);
+    demanderEntierSigneImpair("Indiquer la taille horizontale du nouveau labyrinthe :\n",&taille_horiz);
+    demanderEntierSigneImpair("Indiquer la taille verticale du nouveau labyrinthe :\n",&taille_verti);
     clearConsole();
 
     Case **laby;
@@ -57,19 +57,28 @@ void construireLabyrinthe(int t_h, int t_v,Case **laby){
         printf("Random : %d, %d\n",case_alea_horiz,case_alea_verti);
         determinerCaseAdjacenteEligible(&t_h, &t_v, laby, &case_alea_horiz, &case_alea_verti, caseElij);
         if (!(caseElij[0][0]==-1 && caseElij[1][0]==-1 && caseElij[2][0]==-1 && caseElij[3][0]==-1)){
-            do{
-                if(caseElij[0][0]==-1 && caseElij[1][0]==-1 && caseElij[2][0]==-1 && caseElij[3][0]==-1){
-                    printf("No case found\n");
-                    break;
-                }
-                indice_aleatoire=entierAleatoire(0,3);
-            } while (caseElij[indice_aleatoire][1]==-1);
+            indice_aleatoire=entierAleatoireParmiListe(caseElij);
             printf("Indice aléatoire : %d\n",indice_aleatoire);
             casserMurChoisi(laby,caseElij, indice_aleatoire);
             corrigerIndice(t_h,t_v,laby,laby[case_alea_horiz][case_alea_verti].value,laby[caseElij[indice_aleatoire][0]][caseElij[indice_aleatoire][1]].value);
             afficherLabyrinthe(t_h,t_v,laby);
         }
     } while(verifierLabyrinthe(t_h, t_v, laby)==0);
+
+    steriliserLabyrintheApresConstruction(t_h, t_v, laby);
+    afficherLabyrinthe(t_h, t_v, laby);
+}
+
+//Enlever les valeurs des cases à la fin de la construction
+void steriliserLabyrintheApresConstruction(int t_h, int t_v, Case ** laby){
+    int i, j;
+    for (i=0; i<t_h; i++){
+        for(j=0; j<t_v; j++){
+            if (laby[i][j].type=='n'){
+                laby[i][j].type='v';
+            }
+        }
+    }
 }
 
 int verifierLabyrinthe(int t_h,int t_v,Case ** laby){
