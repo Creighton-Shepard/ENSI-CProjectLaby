@@ -2,11 +2,15 @@
 #define _MENU
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
 
 #define RAND_MAX 2147483647
+#define NB_CHAR_FILE_NAME 30
+
+extern char *filename[NB_CHAR_FILE_NAME];
 
 typedef struct{
     char type; // #=Mur o=Personnage n=Valeur(nombre pour la construction) v=vide(après construction)...
@@ -36,6 +40,7 @@ void steriliserLabyrintheApresConstruction(int t_h, int t_v, Case ** laby);
 void recupererSaisieInteger(char * phraseDem, int * var);
 void demanderEntierSigneImpair(char * phraseDem, int * var);
 void recupererSaisieString(char * phraseDem, char ** var);
+void viderBuffer();
 
 //aleatoire.c
 void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti );

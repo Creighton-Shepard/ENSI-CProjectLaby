@@ -17,14 +17,11 @@ void nouveauLabyrinthe(){
     afficherLabyrinthe(taille_horiz,taille_verti, laby);
     construireLabyrinthe(taille_horiz,taille_verti, laby);
 
-    char ** file_name;
-    file_name=(char **)malloc(sizeof(char *));
-
-    recupererSaisieString("Quel est le nom du labyrinthe ?\n",&file_name);
-    printf("%s\n", file_name);
+    char *filename[NB_CHAR_FILE_NAME];
+    recupererSaisieString("Quel est le nom du labyrinthe ?\n",filename);
+    printf("%s\n", *filename);
     recupererSaisieInteger("TTTTS",&taille_horiz);
     libererMemoireLabyrinthe(taille_horiz, laby);
-    free(file_name);
 }
 
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby){

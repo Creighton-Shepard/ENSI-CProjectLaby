@@ -8,6 +8,7 @@ void recupererSaisieInteger(char * phraseDem, int * var){
         printf("Erreur : Pas de phrase dans la fonction de récupération d'Integer");
     }
     scanf("%d",var);
+    viderBuffer();
 }
 
 void demanderEntierSigneImpair(char * phraseDem, int * var){
@@ -37,5 +38,13 @@ void recupererSaisieString(char * phraseDem, char ** var){
     else{
         printf("Erreur : Pas de phrase dans la fonction de récupération de String");
     }
-    scanf("%s",var);
+    scanf("%s",*var);
+    viderBuffer();
+}
+
+void viderBuffer(){
+    int c=0;
+    while (c!= '\n' && c!=EOF){
+        c=getchar();
+    }
 }
