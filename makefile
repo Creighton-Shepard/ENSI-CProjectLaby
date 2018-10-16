@@ -1,6 +1,6 @@
 
-bin/Labyrinthe : affichage.o aleatoire.o file.o menu.o new_laby.o saisie.o
-	gcc $^ -o $@ ; make clean
+bin/Labyrinthe : affichage.o aleatoire.o file.o load_laby.o menu.o new_laby.o saisie.o
+	gcc $^ -o $@
 
 affichage.o: src/affichage.c
 	gcc -c $^ 
@@ -19,6 +19,9 @@ aleatoire.o : src/aleatoire.c
 
 file.o : src/file.c include/head.h
 	gcc -c src/file.c 
+	
+load_laby.o : src/load_laby.c
+	gcc -c $^
 
 clean:
 	rm -rf *.o

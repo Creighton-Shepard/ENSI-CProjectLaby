@@ -31,7 +31,7 @@ int main(int argc, char * argv[])
                 nouveauLabyrinthe(filename);
                 break;
             case 2:
-                printf("Charger Labyrynthe !\n");
+                chargerLabyrinthe(filename);
                 break;
             case 3:
                 printf("Jouer !\n");

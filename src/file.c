@@ -38,3 +38,19 @@ void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename){
     }
     
 }
+
+void afficherListeFichierRepertoire(char * repertoire){
+    DIR *repo= opendir(repertoire);
+
+    if (repo != NULL){
+        struct dirent *red_dir;
+
+        while (red_dir==readdir(repo)){
+            printf("%s\n", red_dir->d_name);
+        }
+    }
+    else{
+        perror("Erreur dans l'affichage des fichiers d'un dossier\n");
+    }
+    closedir(repo);
+}
