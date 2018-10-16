@@ -10,8 +10,6 @@
 #define RAND_MAX 2147483647
 #define NB_CHAR_FILE_NAME 30
 
-extern char *filename[NB_CHAR_FILE_NAME];
-
 typedef struct{
     char type; // #=Mur o=Personnage n=Valeur(nombre pour la construction) v=vide(après construction)...
     int value;
@@ -23,7 +21,7 @@ void clearConsole();
 void afficherLabyrinthe(int t_h, int t_v, Case **laby);
 
 //new_laby.c
-void nouveauLabyrinthe();
+void nouveauLabyrinthe(char *filename);
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby);
 Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby);
 void libererMemoireLabyrinthe(int t_h, Case **laby);
@@ -39,7 +37,7 @@ void steriliserLabyrintheApresConstruction(int t_h, int t_v, Case ** laby);
 //saisie.c
 void recupererSaisieInteger(char * phraseDem, int * var);
 void demanderEntierSigneImpair(char * phraseDem, int * var);
-void recupererSaisieString(char * phraseDem, char ** var);
+void recupererSaisieString(char * phraseDem, char *var);
 void viderBuffer();
 
 //aleatoire.c
@@ -47,5 +45,8 @@ void caseAleatoire(int t_h, int t_v,int * case_alea_horiz, int * case_alea_verti
 int entierAleatoire(int min, int max);
 void initialiserRandom();
 int entierAleatoireParmiListe(int caseElij[4][2]);
+
+//file.c
+void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename);
 
 #endif

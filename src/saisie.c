@@ -31,14 +31,14 @@ void demanderEntierSigneImpair(char * phraseDem, int * var){
     } while (*var%2==0 || *var<5);
 }
 
-void recupererSaisieString(char * phraseDem, char ** var){
+void recupererSaisieString(char * phraseDem, char *var){
     if (phraseDem!=NULL){
         printf("%s",phraseDem);
     }
     else{
         printf("Erreur : Pas de phrase dans la fonction de récupération de String");
     }
-    scanf("%s",*var);
+    scanf("%s", var);
     viderBuffer();
 }
 

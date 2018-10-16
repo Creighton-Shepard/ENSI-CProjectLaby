@@ -17,8 +17,8 @@ saisie.o: src/saisie.c
 aleatoire.o : src/aleatoire.c
 	gcc -c $^ 
 
-file.o : src/file.c
-	gcc -c $^ 
+file.o : src/file.c include/head.h
+	gcc -c src/file.c 
 
 clean:
 	rm -rf *.o

@@ -4,11 +4,15 @@ int main(int argc, char * argv[])
 {
     int end_of_game; //0 ou 1
     int choix;
+    char *filename;
+
+    filename=(char*)malloc(NB_CHAR_FILE_NAME*sizeof(char));
 
     clearConsole();
     if(argc>1){
         printf("WARNING ! Ce programme n'a pas besoin d'argument au lancement : %d arguments trouvé(s). \n",argc);
     }
+    printf("Bienvenue sur le jeu du Labyrinthe !\n\n");
     end_of_game=0;
     while(!end_of_game)
     {
@@ -24,7 +28,7 @@ int main(int argc, char * argv[])
         switch(choix)
         {
             case 1:
-                nouveauLabyrinthe();
+                nouveauLabyrinthe(filename);
                 break;
             case 2:
                 printf("Charger Labyrynthe !\n");
@@ -35,6 +39,7 @@ int main(int argc, char * argv[])
             case 4:
                 printf("Fin du jeu !\nBonne journée !\n");
                 end_of_game=1;
+                free(filename);
                 break;
         }
     }

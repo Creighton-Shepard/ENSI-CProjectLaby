@@ -1,7 +1,8 @@
 #include "../include/head.h"
 
+
 //main CHOIX 1
-void nouveauLabyrinthe(){
+void nouveauLabyrinthe(char *filename){
     int taille_horiz;
     int taille_verti;
 
@@ -14,14 +15,13 @@ void nouveauLabyrinthe(){
     Case **laby;
     laby=allouerMemoireLabyrinthe(taille_horiz, taille_verti, laby);
     initialiserLabyrinthe(taille_horiz, taille_verti, laby);
-    afficherLabyrinthe(taille_horiz,taille_verti, laby);
     construireLabyrinthe(taille_horiz,taille_verti, laby);
 
-    char *filename[NB_CHAR_FILE_NAME];
-    recupererSaisieString("Quel est le nom du labyrinthe ?\n",filename);
-    printf("%s\n", *filename);
-    recupererSaisieInteger("TTTTS",&taille_horiz);
+    recupererSaisieString("\nQuel est le nom du labyrinthe ?\n",filename);
+    enregistrerLabyrinthe(taille_horiz, taille_verti, laby, filename);
     libererMemoireLabyrinthe(taille_horiz, laby);
+    clearConsole();
+    printf("Création du labyrinthe \"%s\" réussie !\n",filename);
 }
 
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby){
@@ -57,14 +57,11 @@ void construireLabyrinthe(int t_h, int t_v,Case **laby){
         do{
             caseAleatoire(t_h, t_v, &case_alea_horiz, &case_alea_verti);
         } while(laby[case_alea_horiz][case_alea_verti].type=='#');
-        printf("Random : %d, %d\n",case_alea_horiz,case_alea_verti);
         determinerCaseAdjacenteEligible(&t_h, &t_v, laby, &case_alea_horiz, &case_alea_verti, caseElij);
         if (!(caseElij[0][0]==-1 && caseElij[1][0]==-1 && caseElij[2][0]==-1 && caseElij[3][0]==-1)){
             indice_aleatoire=entierAleatoireParmiListe(caseElij);
-            printf("Indice aléatoire : %d\n",indice_aleatoire);
             casserMurChoisi(laby,caseElij, indice_aleatoire);
             corrigerIndice(t_h,t_v,laby,laby[case_alea_horiz][case_alea_verti].value,laby[caseElij[indice_aleatoire][0]][caseElij[indice_aleatoire][1]].value);
-            afficherLabyrinthe(t_h,t_v,laby);
         }
     } while(verifierLabyrinthe(t_h, t_v, laby)==0);
 
@@ -99,14 +96,12 @@ int verifierLabyrinthe(int t_h,int t_v,Case ** laby){
                 else
                 {
                     if(ind!=laby[i][j].value){
-                        printf("Non terminé !\n");
                         return 0;
                     }
                 }
             }
         }
     }
-    printf("Terminé !\n");
     return 1;
 }
 
@@ -165,7 +160,6 @@ void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_al
             if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz-2][*case_alea_verti].value){
                 caseElij[0][0]=*case_alea_horiz-2;
                 caseElij[0][1]=*case_alea_verti;
-                printf("Une case à gauche !\n");
             }
         }
     }
@@ -175,7 +169,6 @@ void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_al
             if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz][*case_alea_verti-2].value){
                 caseElij[1][0]=*case_alea_horiz;
                 caseElij[1][1]=*case_alea_verti-2;
-                printf("Une case en haut !\n");
             }
         }
     }
@@ -185,7 +178,6 @@ void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_al
             if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz+2][*case_alea_verti].value){
                 caseElij[2][0]=*case_alea_horiz+2;
                 caseElij[2][1]=*case_alea_verti;
-                printf("Une case à droite !\n");
             }
         }
     }
@@ -195,7 +187,6 @@ void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_al
             if(laby[*case_alea_horiz][*case_alea_verti].value!=laby[*case_alea_horiz][*case_alea_verti+2].value){
                 caseElij[3][0]=*case_alea_horiz;
                 caseElij[3][1]=*case_alea_verti+2;
-                printf("Une case en bas !\n");
             }
         }
     }  
