@@ -20,7 +20,7 @@ aleatoire.o : src/aleatoire.c
 file.o : src/file.c include/head.h
 	gcc -c src/file.c 
 	
-load_laby.o : src/load_laby.c
+load_laby.o : src/load_laby.c 
 	gcc -c $^
 
 clean:

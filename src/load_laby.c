@@ -4,6 +4,10 @@
 void chargerLabyrinthe(char *filename){
     
     clearConsole();
+    char **liste;
+    int nb_fichier;
+
     printf("Liste des Labyrinthe disponible :\n");
-    afficherListeFichierRepertoire("data");
+    recupererListeFichierRepertoire("data/", liste, &nb_fichier);
+    libererMemoireListeFichier(nb_fichier, liste);
 }

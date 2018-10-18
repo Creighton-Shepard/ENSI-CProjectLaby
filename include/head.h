@@ -7,6 +7,7 @@
 #include <time.h>
 #include <math.h>
 #include <dirent.h>
+#include <sys/types.h>
 
 #define RAND_MAX 2147483647
 #define NB_CHAR_FILE_NAME 30
@@ -49,7 +50,11 @@ int entierAleatoireParmiListe(int caseElij[4][2]);
 
 //file.c
 void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename);
-void afficherListeFichierRepertoire(char * repertoire);
+void recupererListeFichierRepertoire(char * repertoire, char **liste_fichier, int *len_liste);
+int trouverNombreFichierDansRepertoire(DIR *repo);
+void allouerMemoireListeFichier(int len_liste, char ** liste);
+void libererMemoireListeFichier(int len_liste, char ** liste);
+
 
 //load_laby.c
 void chargerLabyrinthe(char *filename);
