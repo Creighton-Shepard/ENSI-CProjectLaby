@@ -32,3 +32,12 @@ void afficherLabyrinthe(int t_h, int t_v, Case **laby){
 void clearConsole(){
     system("clear");
 }
+
+void afficherListeFichier(int len_liste, char **liste_fichier){
+    int i=0;
+
+    printf("Liste des Labyrinthe disponible :\n\n");
+    for(i=0;i<len_liste;i++){
+        printf("(%d) = %s\n",i,liste_fichier[i]);
+    }
+}

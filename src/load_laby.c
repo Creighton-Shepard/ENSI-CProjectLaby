@@ -1,13 +1,26 @@
 #include "../include/head.h"
 
 //main CHOIX 2
-void chargerLabyrinthe(char *filename){
+char * chargerLabyrinthe(char *filename){
     
     clearConsole();
     char **liste;
     int nb_fichier;
+    int choix;
 
-    printf("Liste des Labyrinthe disponible :\n");
-    recupererListeFichierRepertoire("data/", liste, &nb_fichier);
+    liste=recupererListeFichierRepertoire("data/", &nb_fichier);
+    
+    do{
+        afficherListeFichier(nb_fichier, liste);
+        recupererSaisieInteger("\nQuel labyrinthe voulez-vous charger ?\n", &choix);
+        clearConsole();
+        if (choix<0 || choix>nb_fichier-1){
+            printf("Choix incorrect !\n");
+        }
+    } while (choix<0 || choix > nb_fichier-1);
+    strcpy(filename, liste[choix]);
     libererMemoireListeFichier(nb_fichier, liste);
+    clearConsole();
+    printf("Le labyrinthe \"%s\" a été chargé !\n",filename);
+    return filename;
 }

@@ -21,12 +21,11 @@ typedef struct{
 void afficherMenu();
 void clearConsole();
 void afficherLabyrinthe(int t_h, int t_v, Case **laby);
+void afficherListeFichier(int len_liste, char **liste_fichier);
 
 //new_laby.c
-void nouveauLabyrinthe(char *filename);
+char * nouveauLabyrinthe(char *filename);
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby);
-Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby);
-void libererMemoireLabyrinthe(int t_h, Case **laby);
 void construireLabyrinthe(int t_h, int t_v,Case **laby);
 void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_alea_horiz, int *case_alea_verti, int caseElij[4][2]);
 void initialiserCaseAdjacente(int caseElij[4][2]);
@@ -50,13 +49,20 @@ int entierAleatoireParmiListe(int caseElij[4][2]);
 
 //file.c
 void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename);
-void recupererListeFichierRepertoire(char * repertoire, char **liste_fichier, int *len_liste);
-int trouverNombreFichierDansRepertoire(DIR *repo);
-void allouerMemoireListeFichier(int len_liste, char ** liste);
-void libererMemoireListeFichier(int len_liste, char ** liste);
+char ** recupererListeFichierRepertoire(char * repertoire, int *len_liste);
+int trouverNombreFichierDansRepertoire(char * repertoire);
 
 
 //load_laby.c
-void chargerLabyrinthe(char *filename);
+char * chargerLabyrinthe(char *filename);
+
+//memoire.c
+char ** allouerMemoireListeFichier(int len_liste);
+void libererMemoireListeFichier(int len_liste, char ** liste);
+Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby);
+void libererMemoireLabyrinthe(int t_h, Case **laby);
+
+//play.c
+void jouer(char *filename);
 
 #endif

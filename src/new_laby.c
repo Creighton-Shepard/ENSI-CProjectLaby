@@ -2,7 +2,7 @@
 
 
 //main CHOIX 1
-void nouveauLabyrinthe(char *filename){
+char * nouveauLabyrinthe(char *filename){
     int taille_horiz;
     int taille_verti;
 
@@ -22,6 +22,7 @@ void nouveauLabyrinthe(char *filename){
     libererMemoireLabyrinthe(taille_horiz, laby);
     clearConsole();
     printf("Création du labyrinthe \"%s\" réussie !\n",filename);
+    return filename;
 }
 
 void initialiserLabyrinthe(int t_h, int t_v,Case **laby){
@@ -190,35 +191,4 @@ void determinerCaseAdjacenteEligible(int *t_h, int *t_v,Case **laby,int *case_al
             }
         }
     }  
-}
-
-Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby){
-    int i;
-    
-    laby=(Case **)malloc(t_h * sizeof(Case *));
-    if (laby==NULL){
-        printf("Erreur dans la création de la dimension principale du tableau\n");
-    }    
-    for(i=0;i<t_h;i++){
-        laby[i]=(Case *)malloc(t_v*sizeof(Case));
-        if (laby[i]==NULL){
-            int j;
-            printf("Erreur dans la création du sous tableau %d \n",i);
-            //si une erreur est survenue il faut liberer tout ce qui a déjà été alloué
-            for(j=i-1;j>=0;j++){
-                free(laby[j]);
-            }
-            free(laby);
-        }
-    }
-    return laby;
-}
-
-void libererMemoireLabyrinthe(int t_h, Case **laby){
-    int i;
-
-    for(i=0; i<t_h; i++){
-        free(laby[i]);
-    }
-    free(laby);
 }

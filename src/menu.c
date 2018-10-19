@@ -7,7 +7,7 @@ int main(int argc, char * argv[])
     char *filename;
 
     filename=(char*)malloc(NB_CHAR_FILE_NAME*sizeof(char));
-
+    strcpy(filename,"Aucun");
     clearConsole();
     if(argc>1){
         printf("WARNING ! Ce programme n'a pas besoin d'argument au lancement : %d arguments trouvé(s). \n",argc);
@@ -17,6 +17,7 @@ int main(int argc, char * argv[])
     while(!end_of_game)
     {
         do{
+            printf("\nLabyrinthe actuel : %s\n", filename);
             afficherMenu();
             recupererSaisieInteger("Que voulez-vous faire ? (Entrez le chiffre associé)\n", &choix);
             clearConsole();
@@ -28,13 +29,13 @@ int main(int argc, char * argv[])
         switch(choix)
         {
             case 1:
-                nouveauLabyrinthe(filename);
+                filename=nouveauLabyrinthe(filename);
                 break;
             case 2:
-                chargerLabyrinthe(filename);
+                filename=chargerLabyrinthe(filename);
                 break;
             case 3:
-                printf("Jouer !\n");
+                jouer(filename);
                 break;
             case 4:
                 printf("Fin du jeu !\nBonne journée !\n");

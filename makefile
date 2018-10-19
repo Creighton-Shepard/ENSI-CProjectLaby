@@ -1,6 +1,6 @@
 
-bin/Labyrinthe : affichage.o aleatoire.o file.o load_laby.o menu.o new_laby.o saisie.o
-	gcc $^ -o $@
+bin/Labyrinthe : affichage.o aleatoire.o file.o load_laby.o menu.o new_laby.o saisie.o memoire.o play.o
+	gcc $^ -o $@ ; make clean
 
 affichage.o: src/affichage.c
 	gcc -c $^ 
@@ -21,6 +21,12 @@ file.o : src/file.c include/head.h
 	gcc -c src/file.c 
 	
 load_laby.o : src/load_laby.c 
+	gcc -c $^
+
+memoire.o : src/memoire.c
+	gcc -c $^
+
+play.o : src/play.c
 	gcc -c $^
 
 clean:
