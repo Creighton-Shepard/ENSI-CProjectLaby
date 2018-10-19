@@ -1,7 +1,7 @@
 #include "../include/head.h"
 
 //main CHOIX 2
-char * chargerLabyrinthe(char *filename){
+char * selectionnerLabyrinthe(char *filename){
     
     clearConsole();
     char **liste;

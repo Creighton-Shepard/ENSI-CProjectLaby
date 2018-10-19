@@ -51,10 +51,11 @@ int entierAleatoireParmiListe(int caseElij[4][2]);
 void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename);
 char ** recupererListeFichierRepertoire(char * repertoire, int *len_liste);
 int trouverNombreFichierDansRepertoire(char * repertoire);
+Case ** chargerLabyrinthe(char * filename, int *t_h, int *t_v);
 
 
 //load_laby.c
-char * chargerLabyrinthe(char *filename);
+char * selectionnerLabyrinthe(char *filename);
 
 //memoire.c
 char ** allouerMemoireListeFichier(int len_liste);

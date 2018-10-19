@@ -92,3 +92,15 @@ int trouverNombreFichierDansRepertoire(char * repertoire){
     closedir(repo);
     return nb_file-2; // pour ne pas compter . et .. qui ne sont pas des fichiers
 }
+
+Case ** chargerLabyrinthe(char * filename, int *t_h, int *t_v){
+    Case **laby;
+
+    recupererDimensionLabyrinthe(filename, t_h, t_v);
+
+    laby=allouerMemoireLabyrinthe();
+}
+
+void recupererDimensionLabyrinthe(char *filename, int *t_h, int *t_v){
+
+}

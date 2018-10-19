@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
                 filename=nouveauLabyrinthe(filename);
                 break;
             case 2:
-                filename=chargerLabyrinthe(filename);
+                filename=selectionnerLabyrinthe(filename);
                 break;
             case 3:
                 jouer(filename);
