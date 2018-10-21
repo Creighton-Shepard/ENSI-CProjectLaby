@@ -13,7 +13,7 @@ char * nouveauLabyrinthe(char *filename){
     clearConsole();
 
     Case **laby;
-    laby=allouerMemoireLabyrinthe(taille_horiz, taille_verti, laby);
+    laby=allouerMemoireLabyrinthe(taille_horiz, taille_verti);
     initialiserLabyrinthe(taille_horiz, taille_verti, laby);
     construireLabyrinthe(taille_horiz,taille_verti, laby);
 

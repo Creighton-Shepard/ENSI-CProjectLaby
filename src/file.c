@@ -95,12 +95,67 @@ int trouverNombreFichierDansRepertoire(char * repertoire){
 
 Case ** chargerLabyrinthe(char * filename, int *t_h, int *t_v){
     Case **laby;
+    FILE *fd=NULL;
+    char chemin[NB_CHAR_FILE_NAME+9];
 
-    recupererDimensionLabyrinthe(filename, t_h, t_v);
+    sprintf(chemin,"./data/%s.txt",filename);
+    printf("Chemin du fichier : %s\n",chemin);
+    fd=fopen(chemin,"r");
+    if (fd!=NULL){
+        recupererDimensionLabyrinthe(fd, t_h, t_v);
+        printf("Dimension : %d, %d\n", *t_h, *t_v);
 
-    laby=allouerMemoireLabyrinthe();
+        laby=allouerMemoireLabyrinthe(*t_h, *t_v);
+        recupererDonneesLabyrinthe(fd, *t_h, *t_v, laby);
+
+    }
+    else{
+        perror("Erreur durant la récupération des données du labyrinthe\n");
+    }
+
+    if (fclose(fd)==EOF){
+        perror("Erreur dans la fermeture du fichier\n");
+    }
+
+    return laby;
+
 }
 
-void recupererDimensionLabyrinthe(char *filename, int *t_h, int *t_v){
+void recupererDimensionLabyrinthe(FILE *fd, int *t_h, int *t_v){
+    char line[15];
+    if (fgets(line, sizeof(line), fd)!=NULL){
+        *t_h=atoi(strtok(line,","));
+        *t_v=atoi(strtok(line,","));
+    }
+    else{
+        perror("Erreur dans la lecture de la première ligne du fichier \n");
+    }
+}
 
+void recupererDonneesLabyrinthe(FILE *fd, int t_h, int t_v, Case **laby){
+    char currentChar;
+    int cpt_h=0, cpt_v=0;
+
+    do{
+        do{
+            currentChar=fgetc(fd);
+            switch(currentChar){
+                case '#':
+                case 'o':
+                    laby[cpt_h][cpt_v].type=currentChar;
+                    break;
+                case ' ':
+                    laby[cpt_h][cpt_v].type='v';
+                    break;
+                case '\n':
+                    break;
+                default:
+                    perror("Error : caractère inconnu lors de la lecture du labyrinthe");
+            }
+            printf("%c", currentChar);
+            cpt_h++;
+        }while(currentChar != '\n');
+        cpt_v++;
+        cpt_h=0;
+    } while (cpt_v<t_v);
 }

@@ -52,6 +52,8 @@ void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename);
 char ** recupererListeFichierRepertoire(char * repertoire, int *len_liste);
 int trouverNombreFichierDansRepertoire(char * repertoire);
 Case ** chargerLabyrinthe(char * filename, int *t_h, int *t_v);
+void recupererDimensionLabyrinthe(FILE *fd, int *t_h, int *t_v);
+void recupererDonneesLabyrinthe(FILE *fd, int t_h, int t_v, Case **laby);
 
 
 //load_laby.c
@@ -60,10 +62,11 @@ char * selectionnerLabyrinthe(char *filename);
 //memoire.c
 char ** allouerMemoireListeFichier(int len_liste);
 void libererMemoireListeFichier(int len_liste, char ** liste);
-Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby);
+Case** allouerMemoireLabyrinthe(int t_h, int t_v);
 void libererMemoireLabyrinthe(int t_h, Case **laby);
 
 //play.c
 void jouer(char *filename);
+void lancerBoucleDeJeu(int t_h, int t_v, Case **laby);
 
 #endif

@@ -31,9 +31,10 @@ void libererMemoireListeFichier(int len_liste, char **liste){
     free(liste);
 }
 
-Case** allouerMemoireLabyrinthe(int t_h, int t_v, Case **laby){
+Case** allouerMemoireLabyrinthe(int t_h, int t_v){
     int i;
-    
+    Case **laby;
+
     laby=(Case **)malloc(t_h * sizeof(Case *));
     if (laby==NULL){
         printf("Erreur dans la création de la dimension principale du tableau\n");
