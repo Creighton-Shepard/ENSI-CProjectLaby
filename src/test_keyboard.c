@@ -42,6 +42,22 @@ int main()
 	while(1) {
 		set_mode(1);
 		while (!(c = get_key())) usleep(10000);
-		printf("key %d\n", c);
+		switch (c){
+            case 122:
+                printf("Z\n");
+                break;
+            case 113:
+                printf("Q\n");
+                break;
+            case 100:
+                printf("D\n");
+                break;
+            case 115:
+                printf("S\n");
+                break;
+            default:
+                printf("Others\n");
+                break;
+        }
 	}
 }

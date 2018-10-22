@@ -150,7 +150,7 @@ void recupererDonneesLabyrinthe(FILE *fd, int t_h, int t_v, Case **laby){
                 case '\n':
                     break;
                 default:
-                    perror("Error : caractère inconnu lors de la lecture du labyrinthe");
+                    perror("Error : caractère inconnu lors de la lecture du labyrinthe\n");
             }
             printf("%c", currentChar);
             cpt_h++;

@@ -1,6 +1,6 @@
 
 bin/Labyrinthe : affichage.o aleatoire.o file.o load_laby.o menu.o new_laby.o saisie.o memoire.o play.o
-	gcc $^ -o $@ ; make clean
+	gcc $^ -o $@
 
 affichage.o: src/affichage.c
 	gcc -c $^ 

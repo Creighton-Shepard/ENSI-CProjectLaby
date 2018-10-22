@@ -68,5 +68,13 @@ void libererMemoireLabyrinthe(int t_h, Case **laby);
 //play.c
 void jouer(char *filename);
 void lancerBoucleDeJeu(int t_h, int t_v, Case **laby);
+void rechercherEmplacementJoueur(int *player_h, int *player_v, int t_h, int t_v, Case **laby);
+void rechercherEmplacementSortie(int *exit_h, int *exit_v, int t_h, int t_v, Case **laby);
+Case ** deplacerElementDansLaby(int *ex_h, int *ex_v, int new_h, int new_v, int t_h, int t_v, Case **laby);
+int testerFinDuJeu(int exit_h, int exit_v, Case **laby);
+/* Code fournie par la source */
+void set_mode(int want_key);
+int get_key();
+/* FIN - Code fournie par la source */
 
 #endif
