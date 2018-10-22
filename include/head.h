@@ -11,9 +11,11 @@
 
 #define RAND_MAX 2147483647
 #define NB_CHAR_FILE_NAME 30
+#define TRESOR_PERCENT 2 // pourcentage de tresor dans le labyrinthe
+#define PIEGE_PERCENT 2 // pourcentage de piege dans le labyrinthe
 
 typedef struct{
-    char type; // #=Mur o=Personnage n=Valeur(nombre pour la construction) v=vide(après construction)...
+    char type; // #=Mur o=Personnage, X=piège, T=trésor, n=Valeur(nombre pour la construction) v=vide(après construction)...
     int value;
 } Case;
 
@@ -70,7 +72,7 @@ void jouer(char *filename);
 void lancerBoucleDeJeu(int t_h, int t_v, Case **laby);
 void rechercherEmplacementJoueur(int *player_h, int *player_v, int t_h, int t_v, Case **laby);
 void rechercherEmplacementSortie(int *exit_h, int *exit_v, int t_h, int t_v, Case **laby);
-Case ** deplacerElementDansLaby(int *ex_h, int *ex_v, int new_h, int new_v, int t_h, int t_v, Case **laby);
+Case ** deplacerElementDansLaby(int *score, int *ex_h, int *ex_v, int new_h, int new_v, int t_h, int t_v, Case **laby);
 int testerFinDuJeu(int exit_h, int exit_v, Case **laby);
 /* Code fournie par la source */
 void set_mode(int want_key);

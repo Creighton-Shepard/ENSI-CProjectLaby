@@ -21,13 +21,14 @@ void jouer(char *filename){
     else{
         laby=chargerLabyrinthe(filename, &tail_horiz, &tail_verti);
         lancerBoucleDeJeu(tail_horiz, tail_verti, laby);
+        libererMemoireLabyrinthe(tail_horiz, laby);
     }
     clearConsole();
 }
 
 void lancerBoucleDeJeu(int t_h, int t_v, Case **laby){
     int player_h, player_v;
-    int score=0;
+    int score=t_h*t_v;
     int exit_h, exit_v;
     int key_code;
     int end_game=0;
@@ -46,16 +47,16 @@ void lancerBoucleDeJeu(int t_h, int t_v, Case **laby){
         }
 		switch (key_code){
             case 122:
-                laby=deplacerElementDansLaby(&player_h, &player_v, player_h, player_v-1, t_h, t_v, laby);
+                laby=deplacerElementDansLaby(&score, &player_h, &player_v, player_h, player_v-1, t_h, t_v, laby);
                 break;
             case 113:
-                laby=deplacerElementDansLaby(&player_h, &player_v, player_h-1, player_v, t_h, t_v, laby);
+                laby=deplacerElementDansLaby(&score, &player_h, &player_v, player_h-1, player_v, t_h, t_v, laby);
                 break;
             case 100:
-                laby=deplacerElementDansLaby(&player_h, &player_v, player_h+1, player_v, t_h, t_v, laby);
+                laby=deplacerElementDansLaby(&score, &player_h, &player_v, player_h+1, player_v, t_h, t_v, laby);
                 break;
             case 115:
-                laby=deplacerElementDansLaby(&player_h, &player_v, player_h, player_v+1, t_h, t_v, laby);
+                laby=deplacerElementDansLaby(&score, &player_h, &player_v, player_h, player_v+1, t_h, t_v, laby);
                 break;
         }
     }
@@ -108,13 +109,17 @@ void rechercherEmplacementSortie(int *exit_h, int *exit_v, int t_h, int t_v, Cas
 }
 
 
-Case ** deplacerElementDansLaby(int *ex_h, int *ex_v, int new_h, int new_v, int t_h, int t_v, Case **laby){
+Case ** deplacerElementDansLaby(int *score, int *ex_h, int *ex_v, int new_h, int new_v, int t_h, int t_v, Case **laby){
     if ((new_h != *ex_h || new_v != *ex_v) && (new_h>=0 && new_v>=0 && new_h<t_h && new_v<t_v)){
         if (laby[new_h][new_v].type!='#'){
             laby[new_h][new_v].type=laby[*ex_h][*ex_v].type;
             laby[*ex_h][*ex_v].type='v';
             *ex_h=new_h;
             *ex_v=new_v;
+            if(*score>0){
+                *score-=1;
+            }
+            
         }
     }
     return laby;

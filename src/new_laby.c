@@ -69,8 +69,25 @@ void construireLabyrinthe(int t_h, int t_v,Case **laby){
     steriliserLabyrintheApresConstruction(t_h, t_v, laby);
     laby[0][1].type='o';
     laby[t_h-1][t_v-2].type='v';
+    placerPieges(t_h, t_v, laby);
+    placerTresors(t_h, t_v, laby);
     afficherLabyrinthe(t_h, t_v, laby);
 }
+
+void placerPieges(int t_h, int t_v, Case **laby){
+    int nb_tresor;
+    
+    nb_tresor=(int)round(t_h * t_v * TRESOR_PERCENT / 100);
+
+    while (nb_tresor>=0){
+
+    }
+}
+
+void placerTresors(int t_h, int t_v, Case **laby){
+
+}
+
 
 //Enlever les valeurs des cases à la fin de la construction
 void steriliserLabyrintheApresConstruction(int t_h, int t_v, Case ** laby){
