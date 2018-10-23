@@ -34,10 +34,21 @@ void clearConsole(){
 }
 
 void afficherListeFichier(int len_liste, char **liste_fichier){
-    int i=0;
+    int i;
 
     printf("Liste des Labyrinthe disponible :\n\n");
     for(i=0;i<len_liste;i++){
         printf("(%d) = %s\n",i,liste_fichier[i]);
+    }
+}
+
+void afficherTableauScore(Gagnant *tab_score){
+    int i;
+
+    printf("Liste des Gagnants :\n\n");
+    for(i=0;i<NB_GAGNANT;i++){
+        if (tab_score[i].place!=-1){
+            printf("%d - %s - %d\n", tab_score[i].place, tab_score[i].nom_gagnant, tab_score[i].score);
+        }
     }
 }

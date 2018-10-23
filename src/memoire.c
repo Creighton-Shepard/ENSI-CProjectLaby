@@ -1,6 +1,7 @@
 #include "../include/head.h"
 
-char ** allouerMemoireListeFichier(int len_liste){
+// typechaine: 'f'=liste de fichiers / 'g'=liste de gagnants
+char ** allouerMemoireListeChaine(int len_liste){
     int i;
     char ** liste;
 
@@ -9,7 +10,7 @@ char ** allouerMemoireListeFichier(int len_liste){
         printf("Erreur dans la création de la dimension principale du tableau\n");
     }    
     for(i=0;i<len_liste;i++){
-        liste[i]=(char *)malloc(NB_CHAR_FILE_NAME*sizeof(char));
+        liste[i]=(char *)malloc(NB_CHAR_STRING*sizeof(char));
         if (liste[i]==NULL){
             int j;
             printf("Erreur dans la création du sous tableau %d \n",i);
@@ -23,7 +24,7 @@ char ** allouerMemoireListeFichier(int len_liste){
     return liste;
 }
 
-void libererMemoireListeFichier(int len_liste, char **liste){
+void libererMemoireListeChaine(int len_liste, char **liste){
     int i;
     for(i=0; i<len_liste; i++){
         free(liste[i]);
@@ -61,4 +62,14 @@ void libererMemoireLabyrinthe(int t_h, Case **laby){
         free(laby[i]);
     }
     free(laby);
+}
+
+Gagnant * allouerMemoireTableauScore(int len_liste){
+    Gagnant *liste=NULL;
+
+    liste=(Gagnant *)malloc(len_liste*sizeof(Gagnant));
+    if (liste==NULL){
+        printf("Erreur dans la création de la dimension principale du tableau\n");
+    }
+    return liste;
 }

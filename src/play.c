@@ -11,7 +11,7 @@
 
 //Main choix 3 du menu
 void jouer(char *filename){
-    Case ** laby;
+    Case ** laby;   
     int tail_horiz;
     int tail_verti;
 
@@ -22,6 +22,7 @@ void jouer(char *filename){
         laby=chargerLabyrinthe(filename, &tail_horiz, &tail_verti);
         lancerBoucleDeJeu(tail_horiz, tail_verti, laby);
         libererMemoireLabyrinthe(tail_horiz, laby);
+        lancerProcedureScore(filename);
     }
     clearConsole();
 }
@@ -62,8 +63,15 @@ void lancerBoucleDeJeu(int t_h, int t_v, Case **laby){
     }
     clearConsole();
     afficherLabyrinthe(t_h, t_v, laby);
-    recupererSaisieInteger("Fin de jeu", NULL);
+}
 
+void lancerProcedureScore(char *filename){
+    Gagnant *tableau_score;
+
+    tableau_score=allouerMemoireTableauScore(NB_GAGNANT);
+    recupererTableauScore(tableau_score, filename);
+    afficherTableauScore(tableau_score);
+    //free(tableau_score);
 }
 
 void rechercherEmplacementJoueur(int *player_h, int *player_v, int t_h, int t_v, Case **laby){
@@ -112,14 +120,19 @@ void rechercherEmplacementSortie(int *exit_h, int *exit_v, int t_h, int t_v, Cas
 Case ** deplacerElementDansLaby(int *score, int *ex_h, int *ex_v, int new_h, int new_v, int t_h, int t_v, Case **laby){
     if ((new_h != *ex_h || new_v != *ex_v) && (new_h>=0 && new_v>=0 && new_h<t_h && new_v<t_v)){
         if (laby[new_h][new_v].type!='#'){
+            if(*score>0){
+                *score-=1;
+                if (laby[new_h][new_v].type=='X' && (*score-PIEGE_PTS)>=0){
+                    *score-=PIEGE_PTS;
+                }
+                if (laby[new_h][new_v].type=='T'){
+                    *score+=TRESOR_PTS;
+                }
+            }
             laby[new_h][new_v].type=laby[*ex_h][*ex_v].type;
             laby[*ex_h][*ex_v].type='v';
             *ex_h=new_h;
             *ex_v=new_v;
-            if(*score>0){
-                *score-=1;
-            }
-            
         }
     }
     return laby;

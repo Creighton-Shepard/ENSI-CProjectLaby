@@ -6,7 +6,7 @@ int main(int argc, char * argv[])
     int choix;
     char *filename;
 
-    filename=(char*)malloc(NB_CHAR_FILE_NAME*sizeof(char));
+    filename=(char*)malloc(NB_CHAR_STRING*sizeof(char));
     strcpy(filename,"Aucun");
     clearConsole();
     if(argc>1){

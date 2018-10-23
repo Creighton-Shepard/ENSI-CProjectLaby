@@ -3,9 +3,9 @@
 void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename){
     FILE *fd=NULL;
     int i,j;
-    char chemin[NB_CHAR_FILE_NAME+9];
+    char chemin[NB_CHAR_STRING+9];
 
-    sprintf(chemin,"data/%s.txt",filename);
+    sprintf(chemin,"data/laby_save/%s.txt",filename);
     printf("Chemin du fichier : %s\n",chemin);
     fd=fopen(chemin,"w");
 
@@ -31,26 +31,37 @@ void enregistrerLabyrinthe(int t_h, int t_v, Case **laby, char *filename){
             }
             fputc('\n', fd);
         }
+        initialiserFichierScore(filename);
 
         if (fclose(fd)==EOF){
             perror("Erreur dans la fermeture du fichier\n");
         }
+    } 
+}
+
+void initialiserFichierScore(char *filename){
+    FILE *fd=NULL;
+    char chemin[NB_CHAR_STRING+9];
+
+    sprintf(chemin,"data/laby_score/%s.txt",filename);
+    fd=fopen(chemin,"w");
+    if (fclose(fd)==EOF){
+        perror("Erreur dans la fermeture du fichier\n");
     }
-    
 }
 
 char ** recupererListeFichierRepertoire(char * repertoire, int *len_liste){
-    char ** liste_fichier;
+    char ** liste_fichier=NULL;
     *len_liste=trouverNombreFichierDansRepertoire(repertoire);
     printf(">> %d fichiers trouvés \n", *len_liste);
-    if (*len_liste>=0){
+    if (*len_liste>0){
         DIR *repo= opendir(repertoire);
         if (repo != NULL){
             struct dirent *red_dir;
             int len_filename;
             int cpt=0;
  
-            liste_fichier=allouerMemoireListeFichier(*len_liste);
+            liste_fichier=allouerMemoireListeChaine(*len_liste);
         
             while (red_dir=readdir(repo)){
                 len_filename=strlen(red_dir->d_name);
@@ -71,9 +82,7 @@ char ** recupererListeFichierRepertoire(char * repertoire, int *len_liste){
             perror("Erreur dans l'affichage des fichiers d'un dossier\n");
         }
         closedir(repo);
-    }
-    else{
-        printf("Pas de fichiers disponible ! Veuillez créer de nouveaux labyrinthe !\n");
+        
     }
     return liste_fichier;
 }
@@ -96,9 +105,9 @@ int trouverNombreFichierDansRepertoire(char * repertoire){
 Case ** chargerLabyrinthe(char * filename, int *t_h, int *t_v){
     Case **laby;
     FILE *fd=NULL;
-    char chemin[NB_CHAR_FILE_NAME+9];
+    char chemin[NB_CHAR_STRING+9];
 
-    sprintf(chemin,"./data/%s.txt",filename);
+    sprintf(chemin,"./data/laby_save/%s.txt",filename);
     printf("Chemin du fichier : %s\n",chemin);
     fd=fopen(chemin,"r");
     if (fd!=NULL){
@@ -142,6 +151,8 @@ void recupererDonneesLabyrinthe(FILE *fd, int t_h, int t_v, Case **laby){
             switch(currentChar){
                 case '#':
                 case 'o':
+                case 'X':
+                case 'T':
                     laby[cpt_h][cpt_v].type=currentChar;
                     break;
                 case ' ':
@@ -158,4 +169,53 @@ void recupererDonneesLabyrinthe(FILE *fd, int t_h, int t_v, Case **laby){
         cpt_v++;
         cpt_h=0;
     } while (cpt_v<t_v);
+}
+
+void recupererTableauScore(Gagnant *tab_score, char *filename){
+    FILE *fd=NULL;
+    Gagnant current_g;
+    char *chemin;
+    char line[NB_CHAR_STRING+15];
+    int cpt=0;
+
+    sprintf(chemin,"./data/laby_score/%s.txt",filename);
+    printf("Chemin du fichier : %s\n",chemin);
+    fd=fopen(chemin,"r");
+    if (fd!=NULL){
+        while(fgets(line,sizeof(line),fd)!=NULL){
+            current_g=recupererDonneesGagnant(line);
+            tab_score[cpt]=current_g;
+            cpt++;
+            if(cpt>=NB_GAGNANT){
+                break;
+            }
+        }
+        if(cpt<NB_GAGNANT){
+            while(cpt<NB_GAGNANT){
+                tab_score[cpt].place=-1;
+                sprintf(tab_score[cpt].nom_gagnant,"%s","");
+                tab_score[cpt].score=-1;
+                cpt++;
+            }
+        }
+    }
+    else{
+        perror("Erreur d'ouverture lors de la récupération du tableau des scores");
+    }
+}
+
+Gagnant recupererDonneesGagnant(char *line){
+    Gagnant g;
+    printf("==========\nConversion chaine -> Gagnant\n");
+    printf("%s\n", line);
+
+    sscanf(line, "%d %s %d",&g.place, g.nom_gagnant, &g.score);
+    
+    printf("%d\n", g.place);
+    printf("%s\n", g.nom_gagnant);
+    printf("%d\n", g.score);
+
+    printf("FIN\n==========\n");
+
+    return g;
 }

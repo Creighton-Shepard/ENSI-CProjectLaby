@@ -69,23 +69,33 @@ void construireLabyrinthe(int t_h, int t_v,Case **laby){
     steriliserLabyrintheApresConstruction(t_h, t_v, laby);
     laby[0][1].type='o';
     laby[t_h-1][t_v-2].type='v';
-    placerPieges(t_h, t_v, laby);
-    placerTresors(t_h, t_v, laby);
+    placerObjet('X', t_h, t_v, laby);
+    placerObjet('T', t_h, t_v, laby);
     afficherLabyrinthe(t_h, t_v, laby);
 }
 
-void placerPieges(int t_h, int t_v, Case **laby){
+void placerObjet(char objet, int t_h, int t_v, Case **laby){
     int nb_tresor;
-    
-    nb_tresor=(int)round(t_h * t_v * TRESOR_PERCENT / 100);
+    int case_alea_h, case_alea_v;
+    int percent;
+
+    switch (objet){
+        case 'X':
+            percent=PIEGE_PERCENT;
+            break;
+        case 'T':
+            percent=TRESOR_PERCENT;
+            break;
+    }
+    nb_tresor=(int)round(t_h * t_v * percent / 100);
 
     while (nb_tresor>=0){
-
+        do{
+            caseAleatoire(t_h, t_v, &case_alea_h, &case_alea_v);
+        } while (laby[case_alea_h][case_alea_v].type!='v');
+        laby[case_alea_h][case_alea_v].type=objet;
+        nb_tresor--;
     }
-}
-
-void placerTresors(int t_h, int t_v, Case **laby){
-
 }
 
 
