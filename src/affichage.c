@@ -43,7 +43,7 @@ void afficherListeFichier(int len_liste, char **liste_fichier){
 }
 
 void afficherTableauScore(Gagnant *tab_score){
-    int i;
+    int i=0;
 
     printf("Liste des Gagnants :\n\n");
     for(i=0;i<NB_GAGNANT;i++){
