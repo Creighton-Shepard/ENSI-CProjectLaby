@@ -18,6 +18,7 @@ pipeline {
             }
             steps {
                 sh 'echo "changement detecté" >> chg.txt'
+                sh 'ls -l'
             }
         }
     }
