@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Final'){
             steps {
-                sh 'scp -r -p test insights@10.180.1.12:test'
+                sh 'scp -r -p test insights@10.180.1.12:test/'
             }
         }
     }
