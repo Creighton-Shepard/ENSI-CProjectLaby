@@ -18,7 +18,7 @@ pipeline {
         stage('Final'){
             steps {
                 sh 'ping 10.180.1.12'
-                sh 'scp -r -p test.zip insights@10.180.1.12:test'
+                sh 'scp -r -p test insights@10.180.1.12:test'
             }
         }
     }
