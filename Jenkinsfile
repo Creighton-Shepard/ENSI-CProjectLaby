@@ -4,23 +4,22 @@ pipeline {
         stage('First') {
             steps {
                 sh 'printenv'
-                sh 'echo test >> test.txt'
+                sh 'mkdir test'
             }
         }
         stage('Second'){
             steps {
-                sh 'touch second_test.txt'
+                sh 'echo test >> test/test.txt'
+                sh 'touch test/second_test.txt'
+                sh 'echo "changement detecté" >> test/chg.txt'
+                sh 'ls -l'
             }
         }
         stage('Final'){
-            when {
-                branch 'test/ci'
-            }
             steps {
-                sh 'echo "changement detecté" >> chg.txt'
-                sh 'ls -l'
-
-                sh 'ls -l'
+                sh 'zip -r test.zip test'
+                sh 'ping 10.180.1.12'
+                sh 'scp -r -p test.zip insights@10.180.1.12:test'
             }
         }
     }
