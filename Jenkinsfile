@@ -4,6 +4,7 @@ pipeline {
         stage('Intro'){
             steps {
                 sh 'echo "Test" >> test.txt'
+                sh 'ifconfig'
             }
         }
         stage('Test'){
