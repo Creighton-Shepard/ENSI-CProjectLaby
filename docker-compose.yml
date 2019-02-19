@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  dummycontainer:
+    image: hello_world
+    container_name: dummycontainer
